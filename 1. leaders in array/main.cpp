@@ -4,17 +4,23 @@ using namespace std;
 
 vector<int> leaders(vector<int> v){
     vector<int> temp;
-    int i=v.size()-1;
-    int max=v[i];
-  
+    int n=v.size();
+    int max=v[n-1];
+  temp.emplace_back(max);
+
+  if(n==0 && n<=1){return v;}
+
+  int i=n-2;
     while(i>=0){
+         
         if(max<v[i]){
-            temp.emplace_back(max);
             max=v[i];
+            temp.emplace_back(max);
+            
         }
-        i--;
+       i--;
     }
-    if(temp.size()!=0 && temp[temp.size()-1]!=max) temp.emplace_back(max);
+    // if(temp.size()!=0 && temp[temp.size()-1]!=max) temp.emplace_back(max);
     return temp;
 }
 void display(vector<int> &v){
@@ -23,7 +29,7 @@ void display(vector<int> &v){
     }
 }
 int main(){
-    vector<int> v=leaders({4,1,0,2,3});
+    vector<int> v=leaders({4, 7, 1, 0});
     display(v);
 return 0;
 }

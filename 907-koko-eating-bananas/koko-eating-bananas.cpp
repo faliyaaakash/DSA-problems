@@ -1,29 +1,40 @@
 class Solution {
 public:
-    long long calculatetotalhours(vector<int>& v, int h) {
-        long long sum = 0;
-        for (int i = 0; i < v.size(); i++) {
-            double temp=(double)v[i] / h;
-            sum = sum + ceil(temp);
+    int findm(vector<int>& arr){
+        int m=0;
+        for(int i=0;i<arr.size();i++){
+            m=max(arr[i],m);
         }
-        return sum;
+        return m;
     }
-    int minEatingSpeed(vector<int>& v, int h) {
-         int left = 1; 
-        int right = *max_element(v.begin(), v.end());
-        int result = right;
 
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            long long totalHours = calculatetotalhours(v, mid);
+    long long hrs(vector<int>& pile,int k){
+        long long  hr=0;
+        for(int i=0;i<pile.size();i++){
+            hr += (pile[i] + (long long)k - 1) / k;
 
-            if (totalHours <= h) {
-                result = mid;
-                right = mid - 1;
-            } else {
-                left = mid + 1;
+        }
+        return hr;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int mx=findm(piles);
+        int low=1;
+        int high=mx;
+        long long totalhr=0;
+        // int ans=1;
+        while(low<=high){
+            int mid = low + (high - low) / 2;
+            totalhr=hrs(piles,mid);
+
+            if(totalhr>h){
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+                // ans=min(ans,mid);
             }
         }
-        return result;
+        return low;
     }
 };

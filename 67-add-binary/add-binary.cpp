@@ -18,6 +18,7 @@ public:
             result+=(total%2+'0');
             c=total/2;
         }
+        while(result.back()=='0' && result.length()>1){result.pop_back();}
         reverse(result.begin(),result.end());
         return result;
     }

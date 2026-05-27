@@ -1,24 +1,19 @@
 class Solution {
 public:
-    int atmostcount(vector<int> & nums,int k){
-        int left=0,right=0,count=0;
-        int odd=0;
-        while(right<nums.size()){
-              if(nums[right]%2!=0){
-                odd++;
-              }
-              while(odd>k && left<nums.size()){
-                if(nums[left]%2!=0){
-                    odd--;
-                }
-                left++;
-              }
-              count+=right-left+1;
-              right++;
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        unordered_map<int,int> oddcounts;
+        int  n=nums.size();
+        int oddcount=0,count=0;
+      oddcounts[0]=1;
+        for(int i=0;i<n;i++){
+            if(nums[i]%2!=0){
+                oddcount++;
+            }
+            oddcounts[oddcount]++;
+            if(oddcounts.find(oddcount-k)!=oddcounts.end()){
+                count+=oddcounts[oddcount-k];
+            }
         }
         return count;
-    }
-    int numberOfSubarrays(vector<int>& nums, int k) {
-        return atmostcount(nums,k)-atmostcount(nums,k-1);
     }
 };
